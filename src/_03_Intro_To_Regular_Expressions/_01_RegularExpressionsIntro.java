@@ -16,7 +16,10 @@ public class _01_RegularExpressionsIntro {
     /*
      * Code method below! 
      */
-    String emailRemover(String message) {
-        return null;
+    	String emailRemover(String message) {
+        	String regex = "[@].+[.com]";
+        	message = message.replaceAll(regex, "@mail.com");
+        	System.out.println(message);
+            return message;
+        }
     }
-}

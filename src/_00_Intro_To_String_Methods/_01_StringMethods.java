@@ -56,50 +56,106 @@ public class _01_StringMethods {
     // You cannot assume there are no extra spaces around the name, but you can
     // assume there is only one space between the first and last name
     public static String lineLeader(String s1, String s2, String s3) {
-        return null;
+        s1 = s1.trim();
+		s2 = s2.trim();
+		s3 = s3.trim();
+
+		String s1last = s1.substring(s1.length() - 1);
+		String s2last = s2.substring(s2.length() - 1);
+		String s3last = s3.substring(s3.length() - 1);
+
+		if (s1last.compareTo(s2last) < 0) {
+			if (s1last.compareTo(s3last) < 0) {
+				return s1;
+			}
+		} else if (s2last.compareTo(s3last) < 0) {
+			return s2;
+		} else {
+			return s3;
+		}
+		return null;
     }
 
     // Return the sum of all numerical digits in the String
     public static int numeralSum(String s) {
-        return 0;
-    }
+    	int sum = 0;
+		for (int i = 0; i < s.length(); i++) {
+			char char1 = s.charAt(i);
+		if (Character.isDigit(char1)) {
+		sum = sum + Character.getNumericValue(char1);
+		}
+		}
+		return sum;
+
+	}
+    
 
     // Return the number of times String substring appears in String s
     public static int substringCount(String s, String substring) {
-        return 0;
+    	int occurances = 0;
+		 int index = s.indexOf(substring);
+	        while( index != -1 ) {
+	            occurances++;
+	            index = s.indexOf(substring, index + substring.length());
+	        }
+	        return occurances;
     }
 
     // Call Utilities.encrypt at the bottom of this file to encrypt String s
     public static String encrypt(String s, char key) {
-        return null;
+    	s = Utilities.encrypt(s.getBytes(), (byte)key);
+		return s;
     }
 
     // Call Utilities.decrypt at the bottom of this file to decrypt the
     // cyphertext (encrypted text)
     public static String decrypt(String s, char key) {
-        return null;
+    	s = Utilities.decrypt(s, (byte)key);
+		return s;
     }
 
     // Return the number of words in String s that end with String substring
     // You can assume there are no punctuation marks between words
     public static int wordsEndsWithSubstring(String s, String substring) {
-        return 0;
+    	int occurances = 0;
+		String placeholder[] = s.split(" ");
+		for (int i = 0; i < placeholder.length; i++) {
+			if (placeholder[i].endsWith(substring)) {
+				occurances++;
+			}
+		}
+		return occurances;		
     }
 
     // Given String s, return the number of characters between the first
     // occurrence of String substring and the final occurrence
     // You can assume that substring will appear at least twice
     public static int distance(String s, String substring) {
-        return 0;
+    	int inbetween = s.lastIndexOf(substring) - (s.indexOf(substring) + substring.length());
+		return inbetween;
     }
 
     // Return true if String s is a palindrome
     // palindromes are words or phrases are read the same forward as backward.
     // HINT: ignore/remove all punctuation and spaces in the String
     public static boolean palindrome(String s) {
-        return true;
+    	s = s.replaceAll(" ", "");
+		s = s.replaceAll(",", "");
+		s = s.replaceAll(":", "");
+		s = s.replaceAll("\\.", "");
+		s = s.replaceAll("-", "");
+		s = s.replaceAll("\\?", "");
+		
+		String reversed = "";
+		s = s.toLowerCase();
+		
+		for (int i = s.length()-1; i >= 0; i--) {
+			reversed += s.charAt(i);						
+		}
+
+		return s.equals(reversed);
+	}
     }
-}
 
 class Utilities {
     // This basic encryption scheme is called single-byte xor. It takes a
